@@ -64,7 +64,7 @@ defmodule Tzdata.EtsHolder do
   end
 
   defp create_current_release_ets_table do
-    table = :ets.new(:tzdata_current_release, [:set, :named_table])
+    table = :ets.new(:tzdata_current_release, [:set, :named_table, {:read_concurrency, true}])
     {:ok, table}
   end
 

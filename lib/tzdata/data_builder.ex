@@ -29,7 +29,7 @@ defmodule Tzdata.DataBuilder do
 
   defp do_load_and_save_table(content_length, release_version, tzdata_dir, modified_at) do
     ets_table_name = ets_table_name_for_release_version(release_version)
-    table = :ets.new(ets_table_name, [:bag, :named_table])
+    table = :ets.new(ets_table_name, [:bag, :named_table, {:read_concurrency, true}])
     {:ok, map} = Tzdata.BasicDataMap.from_files_in_dir(tzdata_dir)
     :ets.insert(table, {:release_version, release_version})
     :ets.insert(table, {:archive_content_length, content_length})
